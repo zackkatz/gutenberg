@@ -10,12 +10,14 @@ import { __ } from '@wordpress/i18n';
 import {
 	AlignmentControl,
 	BlockControls,
+	InnerBlocks,
 	RichText,
 	useBlockProps,
 } from '@wordpress/block-editor';
 import { BlockQuotation } from '@wordpress/components';
 import { createBlock } from '@wordpress/blocks';
 import { Platform } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 const isWebPlatform = Platform.OS === 'web';
 
@@ -23,19 +25,32 @@ export default function QuoteEdit( {
 	attributes,
 	setAttributes,
 	isSelected,
-	mergeBlocks,
-	onReplace,
 	className,
 	insertBlocksAfter,
+	clientId,
 	style,
 } ) {
-	const { align, value, citation } = attributes;
+	const { align, citation } = attributes;
 	const blockProps = useBlockProps( {
 		className: classnames( className, {
 			[ `has-text-align-${ align }` ]: align,
 		} ),
 		style,
 	} );
+
+	const { isAncestorOfSelectedBlock } = useSelect(
+		( select ) => {
+			const { hasSelectedInnerBlock } = select( 'core/block-editor' );
+
+			return {
+				isAncestorOfSelectedBlock: hasSelectedInnerBlock(
+					clientId,
+					true
+				),
+			};
+		},
+		[ clientId ]
+	);
 
 	return (
 		<>
@@ -48,41 +63,17 @@ export default function QuoteEdit( {
 				/>
 			</BlockControls>
 			<BlockQuotation { ...blockProps }>
-				<RichText
-					identifier="value"
-					multiline
-					value={ value }
-					onChange={ ( nextValue ) =>
-						setAttributes( {
-							value: nextValue,
-						} )
-					}
-					onMerge={ mergeBlocks }
-					onRemove={ ( forward ) => {
-						const hasEmptyCitation =
-							! citation || citation.length === 0;
-						if ( ! forward && hasEmptyCitation ) {
-							onReplace( [] );
-						}
-					} }
-					aria-label={ __( 'Quote text' ) }
-					placeholder={
-						// translators: placeholder text used for the quote
-						__( 'Add quote' )
-					}
-					onReplace={ onReplace }
-					onSplit={ ( piece ) =>
-						createBlock( 'core/quote', {
-							...attributes,
-							value: piece,
-						} )
-					}
-					__unstableOnSplitMiddle={ () =>
-						createBlock( 'core/paragraph' )
-					}
-					textAlign={ align }
+				<InnerBlocks
+					allowedBlocks={ [
+						'core/code',
+						'core/heading',
+						'core/list',
+						'core/paragraph',
+					] }
 				/>
-				{ ( ! RichText.isEmpty( citation ) || isSelected ) && (
+				{ ( ! RichText.isEmpty( citation ) ||
+					isSelected ||
+					isAncestorOfSelectedBlock ) && (
 					<RichText
 						identifier="citation"
 						tagName={ isWebPlatform ? 'cite' : undefined }
