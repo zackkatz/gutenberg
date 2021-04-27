@@ -9,17 +9,17 @@
 				"blockName": "core/paragraph",
 				"attrs": {},
 				"innerBlocks": [],
-				"innerHTML": "<p>There is no greater agony than bearing an untold story inside you.</p>",
+				"innerHTML": "\n<p>There is no greater agony than bearing an untold story inside you.</p>\n",
 				"innerContent": [
-					"<p>There is no greater agony than bearing an untold story inside you.</p>"
+					"\n<p>There is no greater agony than bearing an untold story inside you.</p>\n"
 				]
 			}
 		],
-		"innerHTML": "\n<blockquote class=\"wp-block-quote is-style-large\"><cite>Maya Angelou</cite></blockquote>\n",
+		"innerHTML": "\n<figure class=\"wp-block-quote is-style-large\"><blockquote></blockquote><figcaption><cite>Maya Angelou</cite></figcaption></figure>\n",
 		"innerContent": [
-			"\n<blockquote class=\"wp-block-quote is-style-large\">",
+			"\n<figure class=\"wp-block-quote is-style-large\"><blockquote>",
 			null,
-			"<cite>Maya Angelou</cite></blockquote>\n"
+			"</blockquote><figcaption><cite>Maya Angelou</cite></figcaption></figure>\n"
 		]
 	}
 ]

@@ -85,33 +85,37 @@ export default function QuoteEdit( {
 					</ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>
-			<BlockQuotation { ...innerBlocksProps }>
-				{ innerBlocksProps.children }
+			<figure { ...innerBlocksProps }>
+				<BlockQuotation>{ innerBlocksProps.children }</BlockQuotation>
 				{ shouldCitationBeVisible && (
-					<RichText
-						identifier="citation"
-						tagName={ isWebPlatform ? 'cite' : undefined }
-						style={ { display: 'block' } }
-						value={ citation }
-						onChange={ ( nextCitation ) =>
-							setAttributes( {
-								citation: nextCitation,
-							} )
-						}
-						__unstableMobileNoFocusOnMount
-						aria-label={ __( 'Quote citation text' ) }
-						placeholder={
-							// translators: placeholder text used for the citation
-							__( 'Add citation' )
-						}
-						className="wp-block-quote__citation"
-						textAlign={ align }
-						__unstableOnSplitAtEnd={ () =>
-							insertBlocksAfter( createBlock( 'core/paragraph' ) )
-						}
-					/>
+					<figcaption>
+						<RichText
+							identifier="citation"
+							tagName={ isWebPlatform ? 'cite' : undefined }
+							style={ { display: 'block' } }
+							value={ citation }
+							onChange={ ( nextCitation ) =>
+								setAttributes( {
+									citation: nextCitation,
+								} )
+							}
+							__unstableMobileNoFocusOnMount
+							aria-label={ __( 'Quote citation text' ) }
+							placeholder={
+								// translators: placeholder text used for the citation
+								__( 'Add citation' )
+							}
+							className="wp-block-quote__citation"
+							textAlign={ align }
+							__unstableOnSplitAtEnd={ () =>
+								insertBlocksAfter(
+									createBlock( 'core/paragraph' )
+								)
+							}
+						/>
+					</figcaption>
 				) }
-			</BlockQuotation>
+			</figure>
 		</>
 	);
 }

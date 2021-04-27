@@ -16,11 +16,15 @@ export default function save( { attributes } ) {
 	} );
 
 	return (
-		<blockquote { ...useBlockProps.save( { className } ) }>
-			<InnerBlocks.Content />
+		<figure { ...useBlockProps.save( { className } ) }>
+			<blockquote>
+				<InnerBlocks.Content />
+			</blockquote>
 			{ ! RichText.isEmpty( citation ) && (
-				<RichText.Content tagName="cite" value={ citation } />
+				<figcaption>
+					<RichText.Content tagName="cite" value={ citation } />
+				</figcaption>
 			) }
-		</blockquote>
+		</figure>
 	);
 }
