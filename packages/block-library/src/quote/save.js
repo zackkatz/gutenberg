@@ -17,12 +17,11 @@ export default function save( { attributes } ) {
 
 	return (
 		<>
-			{ RichText.isEmpty( citation ) && (
+			{ RichText.isEmpty( citation ) ? (
 				<blockquote { ...useBlockProps.save( { className } ) }>
 					<InnerBlocks.Content />
 				</blockquote>
-			) }
-			{ ! RichText.isEmpty( citation ) && (
+			) : (
 				<figure { ...useBlockProps.save( { className } ) }>
 					<blockquote>
 						<InnerBlocks.Content />

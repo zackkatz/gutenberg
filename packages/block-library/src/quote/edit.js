@@ -85,13 +85,7 @@ export default function QuoteEdit( {
 					</ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>
-
-			{ ! shouldCitationBeVisible && (
-				<BlockQuotation { ...innerBlocksProps }>
-					{ innerBlocksProps.children }
-				</BlockQuotation>
-			) }
-			{ shouldCitationBeVisible && (
+			{ shouldCitationBeVisible ? (
 				<figure { ...innerBlocksProps }>
 					<BlockQuotation>
 						{ innerBlocksProps.children }
@@ -123,6 +117,10 @@ export default function QuoteEdit( {
 						/>
 					</figcaption>
 				</figure>
+			) : (
+				<BlockQuotation { ...innerBlocksProps }>
+					{ innerBlocksProps.children }
+				</BlockQuotation>
 			) }
 		</>
 	);
