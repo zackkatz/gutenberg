@@ -72,7 +72,7 @@ export default function QuoteEdit( {
 				<ToolbarGroup>
 					<ToolbarButton
 						isActive={ withCitation }
-						label={ __( 'Toogle citation visibility' ) }
+						label={ __( 'Toggle citation visibility' ) }
 						onClick={ () => {
 							if ( true === withCitation ) {
 								// Reset text if it's transitioning to hidden.
