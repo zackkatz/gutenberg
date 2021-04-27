@@ -7,13 +7,14 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, Platform } from '@wordpress/element';
 import {
 	AlignmentControl,
 	BlockControls,
 	useBlockProps,
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 	RichText,
+	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import {
 	BlockQuotation,
@@ -21,7 +22,6 @@ import {
 	ToolbarButton,
 } from '@wordpress/components';
 import { createBlock } from '@wordpress/blocks';
-import { Platform } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 const isWebPlatform = Platform.OS === 'web';
@@ -45,7 +45,7 @@ export default function QuoteEdit( {
 	} );
 	const innerBlocksProps = useInnerBlocksProps( blockProps );
 	const isAncestorOfSelectedBlock = useSelect( ( select ) =>
-		select( 'core/block-editor' ).hasSelectedInnerBlock( clientId )
+		select( blockEditorStore ).hasSelectedInnerBlock( clientId )
 	);
 
 	// On mount, initialize withCitation depending on the citation value.
