@@ -85,9 +85,17 @@ export default function QuoteEdit( {
 					</ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>
-			<figure { ...innerBlocksProps }>
-				<BlockQuotation>{ innerBlocksProps.children }</BlockQuotation>
-				{ shouldCitationBeVisible && (
+
+			{ ! shouldCitationBeVisible && (
+				<BlockQuotation { ...innerBlocksProps }>
+					{ innerBlocksProps.children }
+				</BlockQuotation>
+			) }
+			{ shouldCitationBeVisible && (
+				<figure { ...innerBlocksProps }>
+					<BlockQuotation>
+						{ innerBlocksProps.children }
+					</BlockQuotation>
 					<figcaption>
 						<RichText
 							identifier="citation"
@@ -114,8 +122,8 @@ export default function QuoteEdit( {
 							}
 						/>
 					</figcaption>
-				) }
-			</figure>
+				</figure>
+			) }
 		</>
 	);
 }
