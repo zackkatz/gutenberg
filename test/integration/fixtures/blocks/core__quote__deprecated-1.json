@@ -1,13 +1,13 @@
 [
-    {
-        "clientId": "_clientId_0",
-        "name": "core/quote",
-        "isValid": false,
-        "attributes": {
-            "citation": "",
-            "className": "blocks-quote-style-1"
-        },
-        "innerBlocks": [],
-        "originalContent": "<blockquote class=\"wp-block-quote blocks-quote-style-1\">\n\t<p>Testing deprecated quote block...</p>\n\t<footer>...with a caption</footer>\n</blockquote>"
-    }
+	{
+		"clientId": "_clientId_0",
+		"name": "core/quote",
+		"isValid": false,
+		"attributes": {
+			"citation": "",
+			"className": "blocks-quote-style-1"
+		},
+		"innerBlocks": [],
+		"originalContent": "<blockquote class=\"wp-block-quote blocks-quote-style-1\">\n\t<p>Testing deprecated quote block...</p>\n\t<footer>...with a caption</footer>\n</blockquote>"
+	}
 ]
