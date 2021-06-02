@@ -334,9 +334,9 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			`<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
 <p>chicken</p>
-<!-- /wp:paragraph --><cite>ribs</cite></blockquote>`
+<!-- /wp:paragraph --></blockquote><figcaption><cite>ribs</cite></figcaption></figure>`
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -350,9 +350,9 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			`<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
 <p>ribs</p>
-<!-- /wp:paragraph --><cite>ribs</cite></blockquote>`
+<!-- /wp:paragraph --></blockquote><figcaption><cite>ribs</cite></figcaption></figure>`
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -367,13 +367,13 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			`<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
 <p>chicken</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 <p>ribs</p>
-<!-- /wp:paragraph --><cite>ribs</cite></blockquote>`
+<!-- /wp:paragraph --></blockquote><figcaption><cite>ribs</cite></figcaption></figure>`
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -387,7 +387,7 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			'<blockquote class="wp-block-quote"><cite>ribs</cite></blockquote>'
+			'<figure class="wp-block-quote"><blockquote></blockquote><figcaption><cite>ribs</cite></figcaption></figure>'
 		);
 		expect( console ).toHaveLogged();
 	} );
