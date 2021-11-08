@@ -12,7 +12,7 @@ import {
 	AlignmentControl,
 	BlockControls,
 	useBlockProps,
-	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+	useInnerBlocksProps,
 	RichText,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
