@@ -92,7 +92,7 @@ const transforms = {
 						p: {
 							children: phrasingContentSchema,
 						},
-						cite: {
+						figcaption: {
 							children: phrasingContentSchema,
 						},
 					},
@@ -119,7 +119,10 @@ const transforms = {
 							return true;
 						}
 						// Child is a cite and no other cite child exists before it.
-						if ( ! hasCitation && child.nodeName === 'CITE' ) {
+						if (
+							! hasCitation &&
+							child.nodeName === 'FIGCAPTION'
+						) {
 							hasCitation = true;
 							return true;
 						}
@@ -128,7 +131,7 @@ const transforms = {
 				return (
 					node.nodeName === 'BLOCKQUOTE' &&
 					// The quote block can only handle multiline paragraph
-					// content with an optional cite child.
+					// content with an optional figcaption child.
 					Array.from( node.childNodes ).every( isAllowedNode )
 				);
 			},

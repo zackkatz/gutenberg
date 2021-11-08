@@ -90,32 +90,28 @@ export default function QuoteEdit( {
 					<BlockQuotation>
 						{ innerBlocksProps.children }
 					</BlockQuotation>
-					<figcaption>
-						<RichText
-							identifier="citation"
-							tagName={ isWebPlatform ? 'cite' : undefined }
-							style={ { display: 'block' } }
-							value={ citation }
-							onChange={ ( nextCitation ) =>
-								setAttributes( {
-									citation: nextCitation,
-								} )
-							}
-							__unstableMobileNoFocusOnMount
-							aria-label={ __( 'Quote citation text' ) }
-							placeholder={
-								// translators: placeholder text used for the citation
-								__( 'Add citation' )
-							}
-							className="wp-block-quote__citation"
-							textAlign={ align }
-							__unstableOnSplitAtEnd={ () =>
-								insertBlocksAfter(
-									createBlock( 'core/paragraph' )
-								)
-							}
-						/>
-					</figcaption>
+					<RichText
+						identifier="citation"
+						tagName={ isWebPlatform ? 'figcaption' : undefined }
+						style={ { display: 'block' } }
+						value={ citation }
+						onChange={ ( nextCitation ) =>
+							setAttributes( {
+								citation: nextCitation,
+							} )
+						}
+						__unstableMobileNoFocusOnMount
+						aria-label={ __( 'Quote citation text' ) }
+						placeholder={
+							// translators: placeholder text used for the citation
+							__( 'Add citation' )
+						}
+						className="wp-block-quote__citation"
+						textAlign={ align }
+						__unstableOnSplitAtEnd={ () =>
+							insertBlocksAfter( createBlock( 'core/paragraph' ) )
+						}
+					/>
 				</figure>
 			) : (
 				<BlockQuotation { ...innerBlocksProps }>

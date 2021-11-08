@@ -27,9 +27,7 @@ export default function save( { attributes } ) {
 						<InnerBlocks.Content />
 					</blockquote>
 
-					<figcaption>
-						<RichText.Content tagName="cite" value={ citation } />
-					</figcaption>
+					<RichText.Content tagName="figcaption" value={ citation } />
 				</figure>
 			) }
 		</>
