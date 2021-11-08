@@ -27,6 +27,7 @@ import {
 	getGradientSlugByValue,
 } from '../components/gradients';
 import { cleanEmptyObject, transformStyles, immutableSet } from './utils';
+import { shouldSkipSerialization } from './style';
 import ColorPanel from './color-panel';
 import useSetting from '../components/use-setting';
 
@@ -41,12 +42,6 @@ const hasColorSupport = ( blockType ) => {
 			colorSupport.background !== false ||
 			colorSupport.text !== false )
 	);
-};
-
-const shouldSkipSerialization = ( blockType ) => {
-	const colorSupport = getBlockSupport( blockType, COLOR_SUPPORT_KEY );
-
-	return colorSupport?.__experimentalSkipSerialization;
 };
 
 const hasLinkColorSupport = ( blockType ) => {
@@ -129,46 +124,67 @@ function addAttributes( settings ) {
 export function addSaveProps( props, blockType, attributes ) {
 	if (
 		! hasColorSupport( blockType ) ||
-		shouldSkipSerialization( blockType )
+		shouldSkipSerialization( blockType, COLOR_SUPPORT_KEY )
 	) {
 		return props;
 	}
 
 	const hasGradient = hasGradientSupport( blockType );
-
-	// I'd have prefered to avoid the "style" attribute usage here
 	const { backgroundColor, textColor, gradient, style } = attributes;
 
-	const backgroundClass = getColorClassName(
-		'background-color',
-		backgroundColor
-	);
-	const gradientClass = __experimentalGetGradientClass( gradient );
-	const textClass = getColorClassName( 'color', textColor );
-	const newClassName = classnames(
-		props.className,
-		textClass,
-		gradientClass,
-		{
-			// Don't apply the background class if there's a custom gradient
-			[ backgroundClass ]:
-				( ! hasGradient || ! style?.color?.gradient ) &&
-				!! backgroundClass,
-			'has-text-color': textColor || style?.color?.text,
-			'has-background':
-				backgroundColor ||
-				style?.color?.background ||
-				( hasGradient && ( gradient || style?.color?.gradient ) ),
-			'has-link-color': style?.elements?.link?.color,
-		}
-	);
+	const colorClasses = {};
+
+	const shouldSerialize = ( feature ) =>
+		! shouldSkipSerialization( blockType, COLOR_SUPPORT_KEY, feature );
+
+	// Serialize background color classes.
+	if ( shouldSerialize( 'background' ) ) {
+		const backgroundClass = getColorClassName(
+			'background-color',
+			backgroundColor
+		);
+
+		// Don't apply the background class if there's a custom gradient
+		colorClasses[ backgroundClass ] =
+			( ! hasGradient || ! style?.color?.gradient ) && !! backgroundClass;
+	}
+
+	// Serialize gradient color class.
+	if ( shouldSerialize( 'gradients' ) ) {
+		const gradientClass = __experimentalGetGradientClass( gradient );
+		colorClasses[ gradientClass ] = gradientClass;
+	}
+
+	// Serialize `has-background` that applies when either background or
+	// gradient should be serialized.
+	if ( shouldSerialize( 'background' ) || shouldSerialize( 'gradients' ) ) {
+		colorClasses[ 'has-background' ] =
+			backgroundColor ||
+			style?.color?.background ||
+			( hasGradient && ( gradient || style?.color?.gradient ) );
+	}
+
+	// Serialize text color classes.
+	if ( shouldSerialize( 'text' ) ) {
+		const textClass = getColorClassName( 'color', textColor );
+
+		colorClasses[ textClass ] = textClass;
+		colorClasses[ 'has-text-color' ] = textColor || style?.color?.text;
+	}
+
+	// Serialize link color class.
+	if ( shouldSerialize( 'link' ) ) {
+		colorClasses[ 'has-link-color' ] = style?.elements?.link?.color;
+	}
+
+	const newClassName = classnames( props.className, colorClasses );
 	props.className = newClassName ? newClassName : undefined;
 
 	return props;
 }
 
 /**
- * Filters registered block settings to extand the block edit wrapper
+ * Filters registered block settings to extend the block edit wrapper
  * to apply the desired styles and classnames properly.
  *
  * @param {Object} settings Original block settings.
@@ -178,7 +194,7 @@ export function addSaveProps( props, blockType, attributes ) {
 export function addEditProps( settings ) {
 	if (
 		! hasColorSupport( settings ) ||
-		shouldSkipSerialization( settings )
+		shouldSkipSerialization( settings, COLOR_SUPPORT_KEY )
 	) {
 		return settings;
 	}
@@ -450,7 +466,10 @@ export const withColorPaletteStyles = createHigherOrderComponent(
 			],
 			[ userPalette, themePalette, defaultPalette ]
 		);
-		if ( ! hasColorSupport( name ) || shouldSkipSerialization( name ) ) {
+		if (
+			! hasColorSupport( name ) ||
+			shouldSkipSerialization( name, COLOR_SUPPORT_KEY )
+		) {
 			return <BlockListBlock { ...props } />;
 		}
 		const extraStyles = {};
