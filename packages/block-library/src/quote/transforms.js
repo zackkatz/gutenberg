@@ -4,6 +4,7 @@
 import {
 	createBlock,
 	parseWithAttributeSchema,
+	rawHandler,
 	serialize,
 	switchToBlockType,
 } from '@wordpress/blocks';
@@ -25,6 +26,23 @@ const toBlocksOfType = ( blocks, type ) => {
 
 const transforms = {
 	from: [
+		{
+			type: 'block',
+			isMultiBlock: true,
+			blocks: [ '*' ],
+			__experimentalConvert: ( blocks ) =>
+				createBlock(
+					'core/quote',
+					{},
+					blocks.map( ( block ) =>
+						createBlock(
+							block.name,
+							block.attributes,
+							block.innerBlocks
+						)
+					)
+				),
+		},
 		{
 			type: 'block',
 			isMultiBlock: true,
@@ -135,102 +153,15 @@ const transforms = {
 					Array.from( node.childNodes ).every( isAllowedNode )
 				);
 			},
-			transform: ( node ) => {
-				const innerBlocks = [];
-				let cite = '';
-				node.childNodes.forEach( ( childNode ) => {
-					switch ( childNode.nodeName ) {
-						case 'P':
-							innerBlocks.push(
-								createBlock( 'core/paragraph', {
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'H1':
-							innerBlocks.push(
-								createBlock( 'core/heading', {
-									level: 1,
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'H2':
-							innerBlocks.push(
-								createBlock( 'core/heading', {
-									level: 2,
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'H3':
-							innerBlocks.push(
-								createBlock( 'core/heading', {
-									level: 3,
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'H4':
-							innerBlocks.push(
-								createBlock( 'core/heading', {
-									level: 4,
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'H5':
-							innerBlocks.push(
-								createBlock( 'core/heading', {
-									level: 5,
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'H6':
-							innerBlocks.push(
-								createBlock( 'core/heading', {
-									level: 6,
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'UL':
-							innerBlocks.push(
-								createBlock( 'core/list', {
-									ordered: false,
-									values: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'OL':
-							innerBlocks.push(
-								createBlock( 'core/list', {
-									ordered: true,
-									values: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'PRE':
-							innerBlocks.push(
-								createBlock( 'core/code', {
-									content: childNode.innerHTML,
-								} )
-							);
-							break;
-						case 'CITE':
-							cite = childNode.innerHTML;
-							break;
-						default:
-							break;
-					}
-				} );
-				return createBlock(
+			transform: ( node ) =>
+				createBlock(
 					'core/quote',
-					{ citation: cite },
-					innerBlocks
-				);
-			},
+					{},
+					rawHandler( {
+						HTML: node.innerHTML,
+						mode: 'BLOCKS',
+					} )
+				),
 		},
 	],
 	to: [
