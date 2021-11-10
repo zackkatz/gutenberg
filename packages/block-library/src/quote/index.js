@@ -23,30 +23,30 @@ export const settings = {
 		attributes: {
 			value:
 				'<p>' + __( 'In quoting others, we cite ourselves.' ) + '</p>',
-			citation: 'Julio Cortázar',
+			attribution: 'Julio Cortázar',
 		},
 	},
 	transforms,
 	edit,
 	save,
-	merge( attributes, { value, citation } ) {
+	merge( attributes, { value, attribution } ) {
 		// Quote citations cannot be merged. Pick the second one unless it's
 		// empty.
-		if ( ! citation ) {
-			citation = attributes.citation;
+		if ( ! attribution ) {
+			attribution = attributes.attribution;
 		}
 
 		if ( ! value || value === '<p></p>' ) {
 			return {
 				...attributes,
-				citation,
+				attribution,
 			};
 		}
 
 		return {
 			...attributes,
+			attribution,
 			value: attributes.value + value,
-			citation,
 		};
 	},
 	deprecated,

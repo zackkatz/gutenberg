@@ -78,7 +78,7 @@ const transforms = {
 				return createBlock(
 					'core/quote',
 					{
-						citation,
+						attribution: citation,
 						anchor,
 					},
 					parseWithAttributeSchema( value, {

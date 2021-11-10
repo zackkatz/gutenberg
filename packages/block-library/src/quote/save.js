@@ -9,7 +9,7 @@ import classnames from 'classnames';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const { align, citation } = attributes;
+	const { align, attribution } = attributes;
 
 	const className = classnames( {
 		[ `has-text-align-${ align }` ]: align,
@@ -17,7 +17,7 @@ export default function save( { attributes } ) {
 
 	return (
 		<>
-			{ RichText.isEmpty( citation ) ? (
+			{ RichText.isEmpty( attribution ) ? (
 				<blockquote { ...useBlockProps.save( { className } ) }>
 					<InnerBlocks.Content />
 				</blockquote>
@@ -27,7 +27,10 @@ export default function save( { attributes } ) {
 						<InnerBlocks.Content />
 					</blockquote>
 
-					<RichText.Content tagName="figcaption" value={ citation } />
+					<RichText.Content
+						tagName="figcaption"
+						value={ attribution }
+					/>
 				</figure>
 			) }
 		</>

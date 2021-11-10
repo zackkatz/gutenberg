@@ -35,8 +35,8 @@ export default function QuoteEdit( {
 	clientId,
 	style,
 } ) {
-	const [ withCitation, setWithCitation ] = useState( false );
-	const { align, citation } = attributes;
+	const [ withAttribution, setWithAttribution ] = useState( false );
+	const { align, attribution } = attributes;
 	const blockProps = useBlockProps( {
 		className: classnames( className, {
 			[ `has-text-align-${ align }` ]: align,
@@ -48,16 +48,15 @@ export default function QuoteEdit( {
 		select( blockEditorStore ).hasSelectedInnerBlock( clientId )
 	);
 
-	// On mount, initialize withCitation depending on the citation value.
 	useEffect( () => {
-		if ( ! RichText.isEmpty( citation ) ) {
-			setWithCitation( true );
+		if ( ! RichText.isEmpty( attribution ) ) {
+			setWithAttribution( true );
 		}
 	}, [] );
 
-	let shouldCitationBeVisible = ! RichText.isEmpty( citation );
+	let shouldAttributionBeVisible = ! RichText.isEmpty( attribution );
 	if ( isSelected || isAncestorOfSelectedBlock ) {
-		shouldCitationBeVisible = withCitation;
+		shouldAttributionBeVisible = withAttribution;
 	}
 
 	return (
@@ -71,42 +70,42 @@ export default function QuoteEdit( {
 				/>
 				<ToolbarGroup>
 					<ToolbarButton
-						isActive={ withCitation }
-						label={ __( 'Toggle citation visibility' ) }
+						isActive={ withAttribution }
+						label={ __( 'Toggle attribution visibility' ) }
 						onClick={ () => {
-							if ( true === withCitation ) {
+							if ( true === withAttribution ) {
 								// Reset text if it's transitioning to hidden.
-								setAttributes( { citation: '' } );
+								setAttributes( { attribution: '' } );
 							}
-							setWithCitation( ! withCitation );
+							setWithAttribution( ! withAttribution );
 						} }
 					>
-						{ __( 'Add citation' ) }
+						{ __( 'Add attribution' ) }
 					</ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>
-			{ shouldCitationBeVisible ? (
+			{ shouldAttributionBeVisible ? (
 				<figure { ...innerBlocksProps }>
 					<BlockQuotation>
 						{ innerBlocksProps.children }
 					</BlockQuotation>
 					<RichText
-						identifier="citation"
+						identifier="attribution"
 						tagName={ isWebPlatform ? 'figcaption' : undefined }
 						style={ { display: 'block' } }
-						value={ citation }
-						onChange={ ( nextCitation ) =>
+						value={ attribution }
+						onChange={ ( nextAttribution ) =>
 							setAttributes( {
-								citation: nextCitation,
+								attribution: nextAttribution,
 							} )
 						}
 						__unstableMobileNoFocusOnMount
-						aria-label={ __( 'Quote citation text' ) }
+						aria-label={ __( 'Quote attribution' ) }
 						placeholder={
-							// translators: placeholder text used for the citation
-							__( 'Add citation' )
+							// translators: placeholder text used for the attribution
+							__( 'Add attribution' )
 						}
-						className="wp-block-quote__citation"
+						className="wp-block-quote__attribution"
 						textAlign={ align }
 						__unstableOnSplitAtEnd={ () =>
 							insertBlocksAfter( createBlock( 'core/paragraph' ) )
