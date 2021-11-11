@@ -13,15 +13,14 @@ const toBlocksOfType = ( blocks, type ) => {
 	const result = [];
 	blocks.forEach( ( block ) => {
 		if ( type === block.name ) {
-			result.push( block );
-		} else {
-			const newBlocks = switchToBlockType( block, type );
-			if ( newBlocks ) {
-				result.push( ...newBlocks );
-			}
+			return result.push( block );
+		}
+		const newBlocks = switchToBlockType( block, type );
+		if ( newBlocks ) {
+			result.push( ...newBlocks.filter( Boolean ) );
 		}
 	} );
-	return result.filter( Boolean );
+	return result;
 };
 
 const unwrapContainers = ( blocks ) =>
