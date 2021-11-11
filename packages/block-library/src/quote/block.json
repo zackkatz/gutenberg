@@ -12,7 +12,7 @@
 			"type": "string",
 			"source": "html",
 			"selector": "figcaption",
-			"default": "",
+			"default": null,
 			"__experimentalRole": "content"
 		},
 		"align": {
