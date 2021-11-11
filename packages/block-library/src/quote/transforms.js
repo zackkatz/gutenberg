@@ -24,6 +24,11 @@ const toBlocksOfType = ( blocks, type ) => {
 	return result.filter( Boolean );
 };
 
+const unwrapContainers = ( blocks ) =>
+	blocks.length === 1 && blocks[ 0 ].name === 'core/group'
+		? blocks[ 0 ].innerBlocks
+		: blocks;
+
 const transforms = {
 	from: [
 		{
@@ -34,7 +39,7 @@ const transforms = {
 				createBlock(
 					'core/quote',
 					{},
-					blocks.map( ( block ) =>
+					unwrapContainers( blocks ).map( ( block ) =>
 						createBlock(
 							block.name,
 							block.attributes,
@@ -165,6 +170,23 @@ const transforms = {
 		},
 	],
 	to: [
+		{
+			type: 'block',
+			blocks: [ 'core/group' ],
+			transform: ( { attribution }, innerBlocks ) =>
+				createBlock(
+					'core/group',
+					{},
+					attribution
+						? [
+								...innerBlocks,
+								createBlock( 'core/paragraph', {
+									content: attribution,
+								} ),
+						  ]
+						: innerBlocks
+				),
+		},
 		{
 			type: 'block',
 			blocks: [ 'core/paragraph' ],
