@@ -7,7 +7,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useEffect, useState, Platform } from '@wordpress/element';
+import { Platform, useState } from '@wordpress/element';
 import {
 	AlignmentControl,
 	BlockControls,
@@ -27,7 +27,7 @@ import { useSelect } from '@wordpress/data';
 const isWebPlatform = Platform.OS === 'web';
 
 export default function QuoteEdit( {
-	attributes,
+	attributes: { align, attribution },
 	setAttributes,
 	isSelected,
 	className,
@@ -35,8 +35,9 @@ export default function QuoteEdit( {
 	clientId,
 	style,
 } ) {
-	const [ withAttribution, setWithAttribution ] = useState( false );
-	const { align, attribution } = attributes;
+	const [ withAttribution, setWithAttribution ] = useState(
+		! RichText.isEmpty( attribution )
+	);
 	const blockProps = useBlockProps( {
 		className: classnames( className, {
 			[ `has-text-align-${ align }` ]: align,
@@ -48,16 +49,10 @@ export default function QuoteEdit( {
 		select( blockEditorStore ).hasSelectedInnerBlock( clientId )
 	);
 
-	useEffect( () => {
-		if ( ! RichText.isEmpty( attribution ) ) {
-			setWithAttribution( true );
-		}
-	}, [] );
-
-	let shouldAttributionBeVisible = ! RichText.isEmpty( attribution );
-	if ( isSelected || isAncestorOfSelectedBlock ) {
-		shouldAttributionBeVisible = withAttribution;
-	}
+	const blockIsInSelection = isSelected || isAncestorOfSelectedBlock;
+	const shouldAttributionBeVisible = blockIsInSelection
+		? withAttribution
+		: ! RichText.isEmpty( attribution );
 
 	return (
 		<>
