@@ -7,7 +7,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Platform, useState } from '@wordpress/element';
+import { Platform } from '@wordpress/element';
 import {
 	AlignmentControl,
 	BlockControls,
@@ -35,9 +35,6 @@ export default function QuoteEdit( {
 	clientId,
 	style,
 } ) {
-	const [ withAttribution, setWithAttribution ] = useState(
-		! RichText.isEmpty( attribution )
-	);
 	const blockProps = useBlockProps( {
 		className: classnames( className, {
 			[ `has-text-align-${ align }` ]: align,
@@ -51,7 +48,7 @@ export default function QuoteEdit( {
 
 	const blockIsInSelection = isSelected || isAncestorOfSelectedBlock;
 	const shouldAttributionBeVisible = blockIsInSelection
-		? withAttribution
+		? attribution !== null
 		: ! RichText.isEmpty( attribution );
 
 	return (
@@ -65,15 +62,13 @@ export default function QuoteEdit( {
 				/>
 				<ToolbarGroup>
 					<ToolbarButton
-						isActive={ withAttribution }
+						isActive={ attribution !== null }
 						label={ __( 'Toggle attribution visibility' ) }
-						onClick={ () => {
-							if ( true === withAttribution ) {
-								// Reset text if it's transitioning to hidden.
-								setAttributes( { attribution: '' } );
-							}
-							setWithAttribution( ! withAttribution );
-						} }
+						onClick={ () =>
+							setAttributes( {
+								attribution: attribution === null ? '' : null,
+							} )
+						}
 					>
 						{ __( 'Add attribution' ) }
 					</ToolbarButton>
@@ -88,7 +83,7 @@ export default function QuoteEdit( {
 						identifier="attribution"
 						tagName={ isWebPlatform ? 'figcaption' : undefined }
 						style={ { display: 'block' } }
-						value={ attribution }
+						value={ attribution ?? '' }
 						onChange={ ( nextAttribution ) =>
 							setAttributes( {
 								attribution: nextAttribution,
