@@ -11,15 +11,15 @@ import { Platform } from '@wordpress/element';
 import {
 	AlignmentControl,
 	BlockControls,
-	useBlockProps,
-	useInnerBlocksProps,
 	RichText,
 	store as blockEditorStore,
+	useBlockProps,
+	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import {
 	BlockQuotation,
-	ToolbarGroup,
 	ToolbarButton,
+	ToolbarGroup,
 } from '@wordpress/components';
 import { createBlock } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
@@ -46,10 +46,11 @@ export default function QuoteEdit( {
 		select( blockEditorStore ).hasSelectedInnerBlock( clientId )
 	);
 
-	const blockIsInSelection = isSelected || isAncestorOfSelectedBlock;
-	const shouldAttributionBeVisible = blockIsInSelection
-		? attribution !== null
-		: ! RichText.isEmpty( attribution );
+	const hasAttribution = attribution !== null;
+	const isEditingQuote = isSelected || isAncestorOfSelectedBlock;
+	const showAttribution =
+		( isEditingQuote && hasAttribution ) ||
+		! RichText.isEmpty( attribution );
 
 	return (
 		<>
@@ -62,11 +63,11 @@ export default function QuoteEdit( {
 				/>
 				<ToolbarGroup>
 					<ToolbarButton
-						isActive={ attribution !== null }
+						isActive={ hasAttribution }
 						label={ __( 'Toggle attribution visibility' ) }
 						onClick={ () =>
 							setAttributes( {
-								attribution: attribution === null ? '' : null,
+								attribution: hasAttribution ? null : '',
 							} )
 						}
 					>
@@ -74,7 +75,7 @@ export default function QuoteEdit( {
 					</ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>
-			{ shouldAttributionBeVisible ? (
+			{ showAttribution ? (
 				<figure { ...innerBlocksProps }>
 					<BlockQuotation>
 						{ innerBlocksProps.children }
