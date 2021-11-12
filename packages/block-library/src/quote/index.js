@@ -35,25 +35,5 @@ export const settings = {
 	transforms,
 	edit,
 	save,
-	merge( attributes, { value, attribution } ) {
-		// Quote citations cannot be merged. Pick the second one unless it's
-		// empty.
-		if ( ! attribution ) {
-			attribution = attributes.attribution;
-		}
-
-		if ( ! value || value === '<p></p>' ) {
-			return {
-				...attributes,
-				attribution,
-			};
-		}
-
-		return {
-			...attributes,
-			attribution,
-			value: attributes.value + value,
-		};
-	},
 	deprecated,
 };
