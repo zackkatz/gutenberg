@@ -16,13 +16,15 @@ import Button from '../button';
 import Dropdown from '../dropdown';
 import Tooltip from '../tooltip';
 
-function Option( {
-	className,
-	isSelected,
-	selectedIconProps,
-	tooltipText,
-	...additionalProps
-} ) {
+function Option( props ) {
+	const {
+		className,
+		isSelected,
+		selectedIconProps,
+		tooltipText,
+		...additionalProps
+	} = props;
+
 	const optionButton = (
 		<Button
 			isPressed={ isSelected }

@@ -636,6 +636,48 @@
 		"parent": "components"
 	},
 	{
+		"title": "BorderBoxControl",
+		"slug": "border-box-control",
+		"markdown_source": "../packages/components/src/border-box-control/border-box-control/README.md",
+		"parent": "components"
+	},
+	{
+		"title": "BorderVisualizer",
+		"slug": "border-visualizer",
+		"markdown_source": "../packages/components/src/border-box-control/border-visualizer/README.md",
+		"parent": "components"
+	},
+	{
+		"title": "LinkedButton",
+		"slug": "linked-button",
+		"markdown_source": "../packages/components/src/border-box-control/linked-button/README.md",
+		"parent": "components"
+	},
+	{
+		"title": "SplitBorderControl",
+		"slug": "split-border-control",
+		"markdown_source": "../packages/components/src/border-box-control/split-border-control/README.md",
+		"parent": "components"
+	},
+	{
+		"title": "BorderControl",
+		"slug": "border-control",
+		"markdown_source": "../packages/components/src/border-control/border-control/README.md",
+		"parent": "components"
+	},
+	{
+		"title": "BorderDropdown",
+		"slug": "border-dropdown",
+		"markdown_source": "../packages/components/src/border-control/border-dropdown/README.md",
+		"parent": "components"
+	},
+	{
+		"title": "BorderStyleControl",
+		"slug": "border-style-control",
+		"markdown_source": "../packages/components/src/border-control/border-style-control/README.md",
+		"parent": "components"
+	},
+	{
 		"title": "BoxControl",
 		"slug": "box-control",
 		"markdown_source": "../packages/components/src/box-control/README.md",
