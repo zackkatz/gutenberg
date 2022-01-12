@@ -339,10 +339,10 @@ const withDuotoneStyles = createHigherOrderComponent(
 );
 
 const withDuotoneFilter = createHigherOrderComponent(
-	( Filters ) => ( props ) => {
+	( PresetSvgFilter ) => ( props ) => {
 		return (
 			<>
-				<Filters />
+				<PresetSvgFilter />
 				<DuotoneFilter
 					id={ `wp-duotone-${ props.preset.slug }` }
 					values={ getValuesFromColors( props.preset.colors ) }
