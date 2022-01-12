@@ -341,7 +341,7 @@ const withDuotoneStyles = createHigherOrderComponent(
 
 const withDuotoneFilter = createHigherOrderComponent(
 	( PresetSvgFilter ) => ( props ) => {
-		if ( ! isEqual( props.path, [ 'color', 'duotone' ] ) ) {
+		if ( props.metadata.svgFilter !== 'duotone' ) {
 			return <PresetSvgFilter />;
 		}
 		return (
