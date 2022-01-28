@@ -84,7 +84,6 @@ export function getInlineStyles( styles = {} ) {
 			// Checking if style value is a string allows for shorthand css
 			// option and backwards compatibility for border radius support.
 			const styleValue = get( styles, path );
-
 			if ( !! subPaths && ! isString( styleValue ) ) {
 				Object.entries( subPaths ).forEach( ( entry ) => {
 					const [ name, subPath ] = entry;
