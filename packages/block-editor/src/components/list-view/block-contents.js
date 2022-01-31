@@ -32,17 +32,21 @@ const ListViewBlockContents = forwardRef(
 	) => {
 		const { clientId } = block;
 
-		const { blockMovingClientId, selectedBlockInBlockEditor } = useSelect(
+		const {
+			blockMovingClientId,
+			selectedBlockInBlockEditor,
+			selectedBlocks,
+		} = useSelect(
 			( select ) => {
 				const {
-					getBlockRootClientId,
 					hasBlockMovingClientId,
 					getSelectedBlockClientId,
+					getSelectedBlockClientIds,
 				} = select( blockEditorStore );
 				return {
-					rootClientId: getBlockRootClientId( clientId ) || '',
 					blockMovingClientId: hasBlockMovingClientId(),
 					selectedBlockInBlockEditor: getSelectedBlockClientId(),
+					selectedBlocks: getSelectedBlockClientIds(),
 				};
 			},
 			[ clientId ]
@@ -56,7 +60,7 @@ const ListViewBlockContents = forwardRef(
 		} );
 
 		return (
-			<BlockDraggable clientIds={ [ block.clientId ] }>
+			<BlockDraggable clientIds={ selectedBlocks }>
 				{ ( { draggable, onDragStart, onDragEnd } ) => (
 					<ListViewBlockSelectButton
 						ref={ ref }
