@@ -21,7 +21,6 @@ async function expectLabelToHaveFocus( label ) {
 }
 
 async function testBlockToolbarKeyboardNavigation(
-	currentBlockLabel,
 	currentBlockTitle
 ) {
 	await focusBlockToolbar();
@@ -29,9 +28,10 @@ async function testBlockToolbarKeyboardNavigation(
 	await page.keyboard.press( 'ArrowRight' );
 	await expectLabelToHaveFocus( 'Move up' );
 	await page.keyboard.press( 'Tab' );
-	await expectLabelToHaveFocus( currentBlockLabel );
 	await pressKeyWithModifier( 'shift', 'Tab' );
 	await expectLabelToHaveFocus( 'Move up' );
+	await page.keyboard.press( 'ArrowLeft' );
+	await expectLabelToHaveFocus( currentBlockTitle );
 }
 
 async function wrapCurrentBlockWithGroup( currentBlockTitle ) {
@@ -65,7 +65,6 @@ describe( 'Toolbar roving tabindex', () => {
 		await insertBlock( 'Paragraph' );
 		await page.keyboard.type( 'Paragraph' );
 		await testBlockToolbarKeyboardNavigation(
-			'Paragraph block',
 			'Paragraph'
 		);
 		await wrapCurrentBlockWithGroup( 'Paragraph' );
@@ -75,7 +74,7 @@ describe( 'Toolbar roving tabindex', () => {
 	it( 'ensures heading block toolbar uses roving tabindex', async () => {
 		await insertBlock( 'Heading' );
 		await page.keyboard.type( 'Heading' );
-		await testBlockToolbarKeyboardNavigation( 'Block: Heading', 'Heading' );
+		await testBlockToolbarKeyboardNavigation( 'Heading' );
 		await wrapCurrentBlockWithGroup( 'Heading' );
 		await testGroupKeyboardNavigation( 'Block: Heading', 'Heading' );
 	} );
@@ -83,34 +82,31 @@ describe( 'Toolbar roving tabindex', () => {
 	it( 'ensures list block toolbar uses roving tabindex', async () => {
 		await insertBlock( 'List' );
 		await page.keyboard.type( 'List' );
-		await testBlockToolbarKeyboardNavigation( 'Block: List', 'List' );
+		await testBlockToolbarKeyboardNavigation( 'List' );
 		await wrapCurrentBlockWithGroup( 'List' );
 		await testGroupKeyboardNavigation( 'Block: List', 'List' );
 	} );
 
 	it( 'ensures image block toolbar uses roving tabindex', async () => {
 		await insertBlock( 'Image' );
-		await testBlockToolbarKeyboardNavigation( 'Block: Image', 'Image' );
+		await testBlockToolbarKeyboardNavigation( 'Image' );
 		await wrapCurrentBlockWithGroup( 'Image' );
 		await testGroupKeyboardNavigation( 'Block: Image', 'Image' );
 	} );
 
 	it( 'ensures table block toolbar uses roving tabindex', async () => {
 		await insertBlock( 'Table' );
-		await testBlockToolbarKeyboardNavigation( 'Block: Table', 'Table' );
-		// Move focus to the first toolbar item
-		await page.keyboard.press( 'Home' );
-		await expectLabelToHaveFocus( 'Table' );
+		await testBlockToolbarKeyboardNavigation( 'Table' );
 		await page.click( '.blocks-table__placeholder-button' );
 		await page.keyboard.press( 'Tab' );
-		await testBlockToolbarKeyboardNavigation( 'Body cell text', 'Table' );
+		await expectLabelToHaveFocus( 'Body cell text' );
 		await wrapCurrentBlockWithGroup( 'Table' );
 		await testGroupKeyboardNavigation( 'Block: Table', 'Table' );
 	} );
 
 	it( 'ensures custom html block toolbar uses roving tabindex', async () => {
 		await insertBlock( 'Custom HTML' );
-		await testBlockToolbarKeyboardNavigation( 'HTML', 'Custom HTML' );
+		await testBlockToolbarKeyboardNavigation( 'Custom HTML' );
 		await wrapCurrentBlockWithGroup( 'Custom HTML' );
 		await testGroupKeyboardNavigation(
 			'Block: Custom HTML',
