@@ -20,9 +20,7 @@ async function expectLabelToHaveFocus( label ) {
 	).toBe( label );
 }
 
-async function testBlockToolbarKeyboardNavigation(
-	currentBlockTitle
-) {
+async function testBlockToolbarKeyboardNavigation( currentBlockTitle ) {
 	await focusBlockToolbar();
 	await expectLabelToHaveFocus( currentBlockTitle );
 	await page.keyboard.press( 'ArrowRight' );
@@ -64,9 +62,7 @@ describe( 'Toolbar roving tabindex', () => {
 	it( 'ensures paragraph block toolbar uses roving tabindex', async () => {
 		await insertBlock( 'Paragraph' );
 		await page.keyboard.type( 'Paragraph' );
-		await testBlockToolbarKeyboardNavigation(
-			'Paragraph'
-		);
+		await testBlockToolbarKeyboardNavigation( 'Paragraph' );
 		await wrapCurrentBlockWithGroup( 'Paragraph' );
 		await testGroupKeyboardNavigation( 'Paragraph block', 'Paragraph' );
 	} );
