@@ -63,7 +63,7 @@ const BorderBoxControl = (
 				label={ label }
 				hideLabelFromVision={ hideLabelFromVision }
 			/>
-			<HStack alignment={ 'start' } expanded={ true } spacing={ 3 }>
+			<HStack alignment={ 'start' } expanded={ true } spacing={ 0 }>
 				{ isLinked ? (
 					<BorderControl
 						className={ linkedControlClassName }

@@ -37,6 +37,7 @@ export const SplitBorderControl = css`
 	position: relative;
 	gap: ${ space( 4 ) };
 	flex: 1;
+	margin-right: ${ space( 3 ) };
 `;
 
 export const CenteredBorderControl = css`

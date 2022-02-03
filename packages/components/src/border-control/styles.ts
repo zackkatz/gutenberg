@@ -147,6 +147,7 @@ export const BorderStyleButton = css`
 
 export const BorderSlider = css`
 	flex: 1 1 60%;
+	margin-right: ${ space( 3 ) };
 
 	> div {
 		margin-bottom: 0;
