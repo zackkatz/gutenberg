@@ -48,12 +48,14 @@ export const SmallWrapper = css`
 `;
 
 export const BorderDropdown = css`
+	border-radius: 1px 0 0 1px;
 	border-right: ${ CONFIG.borderWidth } solid ${ COLORS.gray[ 200 ] };
 	background: #fff;
 
 	/* TODO: Reduce specificity here and try to find composable classnames for indicator */
 	&& button {
 		padding: ${ space( 1 ) };
+		border-radius: inherit;
 
 		> span {
 			border-radius: 9999px;
@@ -66,8 +68,8 @@ export const BorderDropdown = css`
 				background: linear-gradient(
 					-45deg,
 					transparent 48%,
-					#ddd 48%,
-					#ddd 52%,
+					rgb( 0 0 0 / 20% ) 48%,
+					rgb( 0 0 0 / 20% ) 52%,
 					transparent 52%
 				);
 			}
