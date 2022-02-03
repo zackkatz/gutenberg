@@ -188,7 +188,7 @@ export function BorderPanel( props ) {
 		// attributes so that CSS classes can be used to apply those colors.
 		// e.g. has-primary-border-top-color.
 
-		let newBorderStyles;
+		let newBorderStyles = { ...newBorder };
 		let newBorderColor;
 		let newSideBorderColors;
 
@@ -199,6 +199,9 @@ export function BorderPanel( props ) {
 			// If so, determine if it belongs to a named color, in which case
 			// saved that named color to the block attribute and clear the
 			// style object's color property to avoid the inline style.
+			//
+			// This deliberately overwrites `newBorderStyles` to avoid mutating
+			// the passed object which causes problems otherwise.
 			newBorderStyles = {
 				top: { ...newBorder.top },
 				right: { ...newBorder.right },
@@ -223,8 +226,6 @@ export function BorderPanel( props ) {
 				}
 			} );
 		} else if ( newBorder?.color ) {
-			newBorderStyles = { ...newBorder };
-
 			// We have a flat border configuration. Apply named color slug to
 			// `borderColor` attribute and clear color style property if found.
 			const customColor = newBorder?.color;
