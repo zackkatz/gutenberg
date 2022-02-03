@@ -102,8 +102,6 @@ export default function SearchEdit( {
 		} );
 	}, [ insertedInNavigationBlock ] );
 	const borderRadius = style?.border?.radius;
-	const borderColor = style?.border?.color;
-	const borderWidth = style?.border?.width;
 	const borderProps = useBorderProps( attributes );
 
 	// Check for old deprecated numerical border radius. Done as a separate
@@ -387,12 +385,19 @@ export default function SearchEdit( {
 		radius ? `calc(${ radius } + ${ DEFAULT_INNER_PADDING })` : undefined;
 
 	const getWrapperStyles = () => {
-		const styles = {
-			borderColor,
-			borderWidth: isButtonPositionInside ? borderWidth : undefined,
-		};
+		const styles = isButtonPositionInside
+			? borderProps.style
+			: {
+					...borderProps.style,
+					borderWidth: undefined,
+					borderTopWidth: undefined,
+					borderRightWidth: undefined,
+					borderBottomWidth: undefined,
+					borderLeftWidth: undefined,
+			  };
 
-		const isNonZeroBorderRadius = parseInt( borderRadius, 10 ) !== 0;
+		const isNonZeroBorderRadius =
+			borderRadius !== undefined && parseInt( borderRadius, 10 ) !== 0;
 
 		if ( isButtonPositionInside && isNonZeroBorderRadius ) {
 			// We have button inside wrapper and a border radius value to apply.
@@ -411,11 +416,11 @@ export default function SearchEdit( {
 				} = borderRadius;
 
 				return {
+					...styles,
 					borderTopLeftRadius: padBorderRadius( topLeft ),
 					borderTopRightRadius: padBorderRadius( topRight ),
 					borderBottomLeftRadius: padBorderRadius( bottomLeft ),
 					borderBottomRightRadius: padBorderRadius( bottomRight ),
-					...styles,
 				};
 			}
 
