@@ -47,6 +47,7 @@ function gutenberg_reregister_core_block_types() {
 				'spacer',
 				'table',
 				// 'table-of-contents',
+				'tag-cloud',
 				'text-columns',
 				'verse',
 				'video',
