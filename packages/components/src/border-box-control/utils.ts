@@ -7,7 +7,7 @@ import type { AnyBorder, Borders, BorderProp, BorderSide } from './types';
 const sides: BorderSide[] = [ 'top', 'right', 'bottom', 'left' ];
 const borderProps: BorderProp[] = [ 'color', 'style', 'width' ];
 
-export const isEmptyBorder = ( border: Border | undefined ) => {
+export const isEmptyBorder = ( border?: Border ) => {
 	if ( ! border ) {
 		return true;
 	}
@@ -37,7 +37,7 @@ export const isDefinedBorder = ( border: AnyBorder ) => {
 	return ! isEmptyBorder( border as Border );
 };
 
-export const isCompleteBorder = ( border: Border | undefined ) => {
+export const isCompleteBorder = ( border?: Border ) => {
 	if ( ! border ) {
 		return false;
 	}
@@ -65,7 +65,7 @@ export const hasMixedBorders = ( borders: AnyBorder ) => {
 	);
 };
 
-export const getSplitBorders = ( border: Border | undefined ) => {
+export const getSplitBorders = ( border?: Border ) => {
 	if ( ! border || isEmptyBorder( border ) ) {
 		return undefined;
 	}
@@ -89,7 +89,7 @@ export const getBorderDiff = ( original: Border, updated: Border ) => {
 	return diff;
 };
 
-export const getCommonBorder = ( borders: Borders | undefined ) => {
+export const getCommonBorder = ( borders?: Borders ) => {
 	if ( ! borders ) {
 		return undefined;
 	}
@@ -115,7 +115,7 @@ export const getCommonBorder = ( borders: Borders | undefined ) => {
 	};
 };
 
-export const getShorthandBorderStyle = ( border: Border | undefined ) => {
+export const getShorthandBorderStyle = ( border?: Border ) => {
 	if ( isEmptyBorder( border ) ) {
 		return undefined;
 	}

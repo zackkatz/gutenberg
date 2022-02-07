@@ -67,7 +67,7 @@ This controls whether to render border style options.
 - Required: No
 - Default: `true`
 
-### `onChange`: `( value: Object | undefined ) => void`
+### `onChange`: `( value?: Object ) => void`
 
 A callback invoked when the border color or style selections change.
 

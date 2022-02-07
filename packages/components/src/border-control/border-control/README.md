@@ -98,7 +98,7 @@ _Whether it is visible only to screen readers is controlled via
 
 - Required: No
 
-### `onChange`: `( value: Object | undefined ) => void`
+### `onChange`: `( value?: Object ) => void`
 
 A callback function invoked when the border value is changed via an interaction
 that selects or clears, border color, style, or width.

@@ -28,7 +28,7 @@ export function useBorderDropdown(
 	const [ widthValue ] = parseUnit( border?.width );
 	const hasZeroWidth = widthValue === 0;
 
-	const onColorChange = ( color: string | undefined ) => {
+	const onColorChange = ( color?: string ) => {
 		const style =
 			border?.style === 'none' ? previousStyleSelection : border?.style;
 		const width = hasZeroWidth && !! color ? '1px' : border?.width;
@@ -36,7 +36,7 @@ export function useBorderDropdown(
 		onChange( { color, style, width } );
 	};
 
-	const onStyleChange = ( style: string | undefined ) => {
+	const onStyleChange = ( style?: string ) => {
 		const width = hasZeroWidth && !! style ? '1px' : border?.width;
 		onChange( { ...border, style, width } );
 	};

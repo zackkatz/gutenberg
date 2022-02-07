@@ -48,7 +48,7 @@ export type BorderControlProps = {
 	 * A callback function invoked when the border value is changed via an
 	 * interaction that selects or clears, border color, style, or width.
 	 */
-	onChange: ( value: Border | undefined ) => void;
+	onChange: ( value?: Border ) => void;
 	/**
 	 * If opted into, sanitizing the border means that if no width or color have
 	 * been selected, the border style is also cleared and `undefined`
@@ -109,7 +109,7 @@ export type BorderDropdownProps = {
 	/**
 	 * A callback invoked when the border color or style selections change.
 	 */
-	onChange: ( newBorder: Border | undefined ) => void;
+	onChange: ( newBorder?: Border ) => void;
 	/**
 	 * Any previous style selection made by the user. This can be used to
 	 * reapply that previous selection when, for example, a zero border width is
@@ -141,7 +141,7 @@ export type BorderStyleControlProps = {
 	/**
 	 * A callback function invoked when a border style is selected or cleared.
 	 */
-	onChange: ( style: string | undefined ) => void;
+	onChange: ( style?: string ) => void;
 	/**
 	 * The currently selected border style if there is one. Styles available via
 	 * this control are `solid`, `dashed` & `dotted`, however the possibility

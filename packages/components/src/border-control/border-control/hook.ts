@@ -13,7 +13,7 @@ import { useCx } from '../../utils/hooks/use-cx';
 
 import type { Border, BorderControlProps } from '../types';
 
-const sanitizeBorder = ( border: Border | undefined ) => {
+const sanitizeBorder = ( border?: Border ) => {
 	const hasNoWidth = border?.width === undefined || border.width === '';
 	const hasNoColor = border?.color === undefined;
 
@@ -45,7 +45,7 @@ export function useBorderControl(
 	const [ styleSelection, setStyleSelection ] = useState< string >();
 
 	const onBorderChange = useCallback(
-		( newBorder: Border | undefined ) => {
+		( newBorder?: Border ) => {
 			if ( shouldSanitizeBorder ) {
 				return onChange( sanitizeBorder( newBorder ) );
 			}
@@ -56,7 +56,7 @@ export function useBorderControl(
 	);
 
 	const onWidthChange = useCallback(
-		( newWidth: string | undefined ) => {
+		( newWidth?: string ) => {
 			const newWidthValue = newWidth === '' ? undefined : newWidth;
 			const [ parsedValue ] = parseUnit( newWidth );
 			const hasZeroWidth = parsedValue === 0;

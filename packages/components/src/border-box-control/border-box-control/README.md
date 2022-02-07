@@ -106,7 +106,7 @@ _Whether it is visible only to screen readers is controlled via
 
 - Required: No
 
-### `onChange`: `( value: Object | undefined ) => void`
+### `onChange`: `( value?: Object ) => void`
 
 A callback function invoked when any border value is changed. The value received
 may be a "flat" border object, one that has properties defining individual side

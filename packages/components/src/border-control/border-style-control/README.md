@@ -32,7 +32,7 @@ _Whether it is visible only to screen readers is controlled via
 
 - Required: No
 
-### `onChange`: `( value: string | undefined ) => void`
+### `onChange`: `( value?: string ) => void`
 
 A callback function invoked when a border style is selected or cleared.
 
