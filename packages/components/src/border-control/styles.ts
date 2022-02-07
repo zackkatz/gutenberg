@@ -53,7 +53,7 @@ export const BorderDropdown = css`
 	background: #fff;
 
 	/* TODO: Reduce specificity here and try to find composable classnames for indicator */
-	&& button {
+	&& > button {
 		padding: ${ space( 1 ) };
 		border-radius: inherit;
 
