@@ -44,7 +44,7 @@ export function useBorderBoxControl(
 	const [ isLinked, setIsLinked ] = useState( ! mixedBorders );
 	const toggleLinked = () => setIsLinked( ! isLinked );
 
-	const onLinkedChange = ( newBorder: Border | undefined ) => {
+	const onLinkedChange = ( newBorder?: Border ) => {
 		if ( ! newBorder ) {
 			return onChange( undefined );
 		}
