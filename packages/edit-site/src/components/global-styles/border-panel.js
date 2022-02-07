@@ -4,10 +4,10 @@
 import { __experimentalBorderRadiusControl as BorderRadiusControl } from '@wordpress/block-editor';
 import {
 	__experimentalBorderBoxControl as BorderBoxControl,
+	__experimentalHasSplitBorders as hasSplitBorders,
+	__experimentalIsDefinedBorder as isDefinedBorder,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	isDefinedBorder,
-	hasSplitBorders,
 } from '@wordpress/components';
 import { useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';

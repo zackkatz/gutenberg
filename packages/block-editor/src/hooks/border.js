@@ -8,10 +8,10 @@ import classnames from 'classnames';
  */
 import { getBlockSupport } from '@wordpress/blocks';
 import {
-	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalBorderBoxControl as BorderBoxControl,
-	isDefinedBorder,
-	hasSplitBorders,
+	__experimentalHasSplitBorders as hasSplitBorders,
+	__experimentalIsDefinedBorder as isDefinedBorder,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { Platform } from '@wordpress/element';
