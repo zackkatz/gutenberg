@@ -30,6 +30,10 @@ export type BorderBoxControlProps = {
 	 */
 	enableAlpha?: boolean;
 	/**
+	 * This controls whether to support border style selections.
+	 */
+	enableStyle?: boolean;
+	/**
 	 * Provides control over whether the label will only be visible to
 	 * screen readers.
 	 */
@@ -44,10 +48,6 @@ export type BorderBoxControlProps = {
 	 * individual side borders, or `undefined`.
 	 */
 	onChange: ( value: AnyBorder ) => void;
-	/**
-	 * This controls whether to support border style selections.
-	 */
-	showStyle?: boolean;
 	/**
 	 * An object representing the current border configuration.
 	 *
@@ -108,15 +108,15 @@ export type SplitBorderControlProps = {
 	 */
 	enableAlpha?: boolean;
 	/**
+	 * This controls whether to include border style options within the
+	 * individual `BorderControl` components.
+	 */
+	enableStyle?: boolean;
+	/**
 	 * A callback that is invoked whenever an individual side's border has
 	 * changed.
 	 */
 	onChange: ( value: Border | undefined, side: BorderSide ) => void;
-	/**
-	 * This controls whether to include border style options within the
-	 * individual `BorderControl` components.
-	 */
-	showStyle?: boolean;
 	/**
 	 * An object representing the current border configuration. It contains
 	 * properties for each side, with each side an object reflecting the border

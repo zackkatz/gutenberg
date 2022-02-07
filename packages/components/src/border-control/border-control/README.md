@@ -67,6 +67,14 @@ custom colors.
 
 - Required: No
 
+### `enableStyle`: `boolean`
+
+This controls whether to include border style options within the
+`BorderDropdown` sub-component.
+
+- Required: No
+- Default: `true`
+
 ### `hideLabelFromVision`: `boolean`
 
 Provides control over whether the label will only be visible to screen readers.
@@ -106,14 +114,6 @@ selected, the border style is also cleared and `undefined` is returned as the
 new border value.
 
 - Required: No
-
-### `showStyle`: `boolean`
-
-This controls whether to include border style options within the
-`BorderDropdown` sub-component.
-
-- Required: No
-- Default: `true`
 
 ### `value`: `Object`
 

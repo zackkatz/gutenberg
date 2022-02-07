@@ -138,7 +138,7 @@ describe( 'BorderControl', () => {
 		} );
 
 		it( 'should not render style options when opted out of', () => {
-			renderBorderControl( { showStyle: false } );
+			renderBorderControl( { enableStyle: false } );
 			openPopover();
 
 			const styleLabel = screen.queryByText( 'Style' );

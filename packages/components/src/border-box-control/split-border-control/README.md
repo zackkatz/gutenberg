@@ -41,18 +41,18 @@ custom colors.
 
 - Required: No
 
-### `onChange`: `onChange: ( value: Object | undefined, side: string ) => void;`
-
-A callback that is invoked whenever an individual side's border has changed.
-
-- Required: Yes
-
-### `showStyle`: `boolean`
+### `enableStyle`: `boolean`
 
 This controls whether to include border style options within the individual
 `BorderControl` components.
 
 - Required: No
+
+### `onChange`: `onChange: ( value: Object | undefined, side: string ) => void;`
+
+A callback that is invoked whenever an individual side's border has changed.
+
+- Required: Yes
 
 ### `value`: `Object`
 

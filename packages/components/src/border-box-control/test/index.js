@@ -146,7 +146,7 @@ describe( 'BorderBoxControl', () => {
 		} );
 
 		it( 'should omit style options when requested', () => {
-			renderBorderBoxControl( { showStyle: false } );
+			renderBorderBoxControl( { enableStyle: false } );
 
 			const colorButton = screen.getByLabelText( 'Open border options' );
 			fireEvent.click( colorButton );
@@ -205,7 +205,7 @@ describe( 'BorderBoxControl', () => {
 		} );
 
 		it( 'should omit style options when requested', () => {
-			renderBorderBoxControl( { showStyle: false } );
+			renderBorderBoxControl( { enableStyle: false } );
 			clickButton( 'Unlink sides' );
 
 			const colorButtons = screen.getAllByLabelText(

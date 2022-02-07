@@ -35,6 +35,7 @@ const BorderControl = (
 		colors,
 		disableCustomColors,
 		enableAlpha,
+		enableStyle = true,
 		hideLabelFromVision,
 		innerWrapperClassName,
 		label,
@@ -43,7 +44,6 @@ const BorderControl = (
 		onWidthChange,
 		placeholder,
 		previousStyleSelection,
-		showStyle = true,
 		sliderClassName,
 		value: border,
 		width,
@@ -69,8 +69,8 @@ const BorderControl = (
 						colors={ colors }
 						disableCustomColors={ disableCustomColors }
 						enableAlpha={ enableAlpha }
+						enableStyle={ enableStyle }
 						onChange={ onBorderChange }
-						showStyle={ showStyle }
 						previousStyleSelection={ previousStyleSelection }
 						__experimentalHasMultipleOrigins={
 							__experimentalHasMultipleOrigins

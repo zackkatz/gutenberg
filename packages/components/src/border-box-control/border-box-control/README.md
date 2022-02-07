@@ -84,6 +84,13 @@ custom colors.
 
 - Required: No
 
+### `enableStyle`: `boolean`
+
+This controls whether to support border style selections.
+
+- Required: No
+- Default: `true`
+
 ### `hideLabelFromVision`: `boolean`
 
 Provides control over whether the label will only be visible to screen readers.
@@ -108,13 +115,6 @@ borders, or `undefined`.
 _Note: The will be `undefined` if a user clears all borders._
 
 - Required: Yes
-
-### `showStyle`: `boolean`
-
-This controls whether to support border style selections.
-
-- Required: No
-- Default: `true`
 
 ### `value`: `Object`
 

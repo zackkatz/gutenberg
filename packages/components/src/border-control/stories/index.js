@@ -59,8 +59,8 @@ export const Default = _default.bind( {} );
 Default.args = {
 	disableCustomColors: false,
 	enableAlpha: true,
+	enableStyle: true,
 	isCompact: true,
-	showStyle: true,
 	width: '110px',
 	withSlider: true,
 };

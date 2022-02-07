@@ -75,7 +75,7 @@ export const Default = _default.bind( {} );
 Default.args = {
 	disableCustomColors: false,
 	enableAlpha: true,
-	showStyle: true,
+	enableStyle: true,
 	defaultBorder: {
 		color: '#72aee6',
 		style: 'dashed',

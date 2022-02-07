@@ -25,6 +25,11 @@ export type BorderControlProps = {
 	 */
 	enableAlpha?: boolean;
 	/**
+	 * This controls whether to include border style options within the
+	 * `BorderDropdown` sub-component.
+	 */
+	enableStyle?: boolean;
+	/**
 	 * Provides control over whether the label will only be visible to screen
 	 * readers.
 	 */
@@ -50,11 +55,6 @@ export type BorderControlProps = {
 	 * is returned as the new border value.
 	 */
 	shouldSanitizeBorder?: boolean;
-	/**
-	 * This controls whether to include border style options within the
-	 * `BorderDropdown` sub-component.
-	 */
-	showStyle?: boolean;
 	/**
 	 * An object representing a border or `undefined`. Used to set the current
 	 * border configuration for this component.
@@ -103,6 +103,10 @@ export type BorderDropdownProps = {
 	 */
 	enableAlpha?: boolean;
 	/**
+	 * This controls whether to render border style options.
+	 */
+	enableStyle?: boolean;
+	/**
 	 * A callback invoked when the border color or style selections change.
 	 */
 	onChange: ( newBorder: Border | undefined ) => void;
@@ -112,10 +116,6 @@ export type BorderDropdownProps = {
 	 * to a non-zero value.
 	 */
 	previousStyleSelection?: string;
-	/**
-	 * This controls whether to render border style options.
-	 */
-	showStyle?: boolean;
 	/**
 	 * This is passed on to the `ColorPalette` which needs to be made aware of
 	 * whether the colors prop contains multiple origins.

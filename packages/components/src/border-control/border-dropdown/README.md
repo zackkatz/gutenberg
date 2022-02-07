@@ -60,6 +60,13 @@ This controls whether the alpha channel will be offered via the `ColorPalette`'s
 
 - Required: No
 
+### `enableStyle`: `boolean`
+
+This controls whether to render border style options.
+
+- Required: No
+- Default: `true`
+
 ### `onChange`: `( value: Object | undefined ) => void`
 
 A callback invoked when the border color or style selections change.
@@ -73,13 +80,6 @@ previous selection when, for example, a zero border width is to a non-zero
 value.
 
 - Required: Yes
-
-### `showStyle`: `boolean`
-
-This controls whether to render border style options.
-
-- Required: No
-- Default: `true`
 
 ### `__experimentalHasMultipleOrigins`: `boolean`
 

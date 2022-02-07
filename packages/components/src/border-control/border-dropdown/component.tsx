@@ -42,7 +42,7 @@ const BorderDropdown = (
 		popoverContentClassName,
 		popoverControlsClassName,
 		resetButtonClassName,
-		showStyle = true,
+		enableStyle = true,
 		...otherProps
 	} = useBorderDropdown( props );
 
@@ -99,7 +99,7 @@ const BorderDropdown = (
 					clearable={ false }
 					enableAlpha={ enableAlpha }
 				/>
-				{ showStyle && (
+				{ enableStyle && (
 					<BorderStyleControl
 						label={ __( 'Style' ) }
 						value={ style }
