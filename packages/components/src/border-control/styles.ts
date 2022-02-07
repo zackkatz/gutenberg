@@ -42,7 +42,7 @@ export const InnerWrapper = css`
 	}
 `;
 
-export const SmallWrapper = css`
+export const CompactWrapper = css`
 	width: 90px;
 	flex: 0 0 auto;
 `;

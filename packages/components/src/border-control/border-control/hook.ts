@@ -30,7 +30,7 @@ export function useBorderControl(
 ) {
 	const {
 		className,
-		isSmall,
+		isCompact,
 		onChange,
 		shouldSanitizeBorder = true,
 		value: border,
@@ -108,9 +108,9 @@ export function useBorderControl(
 	}, [ className ] );
 
 	const innerWrapperClassName = useMemo( () => {
-		const smallStyle = isSmall && styles.SmallWrapper;
-		return cx( styles.InnerWrapper, smallStyle );
-	}, [ isSmall ] );
+		const compactStyle = isCompact && styles.CompactWrapper;
+		return cx( styles.InnerWrapper, compactStyle );
+	}, [ isCompact ] );
 
 	const widthControlClassName = useMemo( () => {
 		return cx( styles.BorderWidthControl );

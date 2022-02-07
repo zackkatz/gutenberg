@@ -35,7 +35,7 @@ const SplitBorderControl = (
 		colors,
 		disableCustomColors,
 		enableAlpha,
-		isSmall: true,
+		isCompact: true,
 		showStyle,
 		__experimentalHasMultipleOrigins,
 		__experimentalIsRenderedInSidebar,

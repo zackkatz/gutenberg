@@ -73,7 +73,7 @@ Provides control over whether the label will only be visible to screen readers.
 
 - Required: No
 
-### `isSmall`: `boolean`
+### `isCompact`: `boolean`
 
 This flags the `BorderControl` to render with a more compact appearance. It
 restricts the width of the control and prevents it from expanding to take up

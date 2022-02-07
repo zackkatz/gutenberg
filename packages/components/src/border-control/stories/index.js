@@ -49,7 +49,7 @@ const _default = ( props ) => {
 				label="Border"
 				onChange={ onChange }
 				value={ border }
-				width={ ! props.isSmall && props.width }
+				width={ ! props.isCompact && props.width }
 			/>
 		</WrapperView>
 	);
@@ -59,7 +59,7 @@ export const Default = _default.bind( {} );
 Default.args = {
 	disableCustomColors: false,
 	enableAlpha: true,
-	isSmall: true,
+	isCompact: true,
 	showStyle: true,
 	width: '110px',
 	withSlider: true,

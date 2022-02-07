@@ -34,7 +34,7 @@ export type BorderControlProps = {
 	 * It restricts the width of the control and prevents it from expanding to
 	 * take up additional space.
 	 */
-	isSmall?: boolean;
+	isCompact?: boolean;
 	/**
 	 * If provided, a label will be generated using this as the content.
 	 */
