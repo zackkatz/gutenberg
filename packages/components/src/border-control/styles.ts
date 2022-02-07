@@ -113,7 +113,7 @@ export const ResetButton = css`
 `;
 
 export const BorderWidthControl = css`
-	/* Target the UnitControl backdrop. Todo: Find cleaner approach. */
+	/* Target the UnitControl backdrop */
 	&&& > div > div {
 		border: none;
 	}
