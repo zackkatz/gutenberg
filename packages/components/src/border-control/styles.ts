@@ -128,6 +128,7 @@ export const BorderWidthControl = css`
 export const BorderStyleControl = css`
 	> label {
 		display: block;
+		font-weight: 500;
 	}
 
 	> div {
