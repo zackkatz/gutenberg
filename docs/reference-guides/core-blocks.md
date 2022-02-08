@@ -654,7 +654,7 @@ Give quoted text visual emphasis. "In quoting others, we cite ourselves." — Ju
 -	**Name:** core/quote
 -	**Category:** text
 -	**Supports:** anchor, typography (fontSize, lineHeight)
--	**Attributes:** align, citation, value
+-	**Attributes:** align, attribution
 
 ## Read More
 

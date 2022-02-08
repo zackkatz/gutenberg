@@ -144,7 +144,13 @@ const deprecated = [
 			} ).map( ( { value } ) =>
 				createBlock( 'core/paragraph', { content: value } )
 			);
-			return [ omit( attributes, [ 'value' ] ), innerBlocks ];
+			return [
+				{
+					...omit( attributes, [ 'value', 'citation' ] ),
+					attribution: attributes.citation,
+				},
+				innerBlocks,
+			];
 		},
 		save( { attributes: { value, citation } } ) {
 			return (
