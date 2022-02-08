@@ -1171,7 +1171,7 @@ export const duplicateBlocks = ( clientIds, updateSelection = true ) => ( {
 		last( castArray( clientIds ) )
 	);
 	const clonedBlocks = blocks.map( ( block ) =>
-		cloneBlock( block, {}, null, { retainInternalAttributes: false } )
+		cloneBlock( block, {}, null, { retainCopyAttributes: false } )
 	);
 	dispatch.insertBlocks(
 		clonedBlocks,
