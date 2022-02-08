@@ -42,10 +42,12 @@ export const InnerWrapper = css`
 	}
 `;
 
-export const CompactWrapper = css`
-	width: 90px;
-	flex: 0 0 auto;
-`;
+export const WrapperWidth = ( width: string ) => {
+	return css`
+		width: ${ width };
+		flex: 0 0 auto;
+	`;
+};
 
 export const BorderDropdown = css`
 	border-radius: 1px 0 0 1px;

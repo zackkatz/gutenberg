@@ -46,7 +46,6 @@ const BorderControl = (
 		previousStyleSelection,
 		sliderClassName,
 		value: border,
-		width,
 		widthControlClassName,
 		widthUnit,
 		widthValue,
@@ -63,7 +62,7 @@ const BorderControl = (
 				hideLabelFromVision={ hideLabelFromVision }
 			/>
 			<HStack spacing={ 3 }>
-				<HStack className={ innerWrapperClassName } style={ { width } }>
+				<HStack className={ innerWrapperClassName }>
 					<BorderDropdown
 						border={ border }
 						colors={ colors }

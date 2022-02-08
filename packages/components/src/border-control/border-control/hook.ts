@@ -34,6 +34,7 @@ export function useBorderControl(
 		onChange,
 		shouldSanitizeBorder = true,
 		value: border,
+		width,
 		...otherProps
 	} = useContextSystem( props, 'BorderControl' );
 
@@ -108,9 +109,12 @@ export function useBorderControl(
 	}, [ className ] );
 
 	const innerWrapperClassName = useMemo( () => {
-		const compactStyle = isCompact && styles.CompactWrapper;
-		return cx( styles.InnerWrapper, compactStyle );
-	}, [ isCompact ] );
+		const wrapperWidth = isCompact ? '90px' : width;
+		const widthStyle =
+			!! wrapperWidth && styles.WrapperWidth( wrapperWidth );
+
+		return cx( styles.InnerWrapper, widthStyle );
+	}, [ isCompact, width ] );
 
 	const widthControlClassName = useMemo( () => {
 		return cx( styles.BorderWidthControl );
