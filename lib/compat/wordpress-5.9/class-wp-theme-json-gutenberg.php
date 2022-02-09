@@ -229,6 +229,7 @@ class WP_Theme_JSON_Gutenberg {
 			'custom'           => null,
 			'customDuotone'    => null,
 			'customGradient'   => null,
+			'defaultDuotone'   => null,
 			'defaultGradients' => null,
 			'defaultPalette'   => null,
 			'duotone'          => null,
@@ -1515,7 +1516,10 @@ class WP_Theme_JSON_Gutenberg {
 
 			$filters = '';
 			foreach ( $origins as $origin ) {
-				if ( ! isset( $duotone_presets[ $origin ] ) ) {
+				if (
+					! isset( $duotone_presets[ $origin ] ) ||
+					( 'default' === $origin && false === $node['color']['defaultDuotone'] )
+				) {
 					continue;
 				}
 				foreach ( $duotone_presets[ $origin ] as $duotone_preset ) {
