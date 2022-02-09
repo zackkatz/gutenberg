@@ -4,7 +4,7 @@
 		"name": "core/quote",
 		"isValid": true,
 		"attributes": {
-			"citation": "Matt Mullenweg, 2017"
+			"attribution": "Matt Mullenweg, 2017"
 		},
 		"innerBlocks": [
 			{
@@ -19,6 +19,6 @@
 				"originalContent": "<p>The editor will endeavour to create a new page and post building experience that makes writing rich posts effortless, and has “blocks” to make it easy what today might take shortcodes, custom HTML, or “mystery meat” embed discovery.</p>"
 			}
 		],
-		"originalContent": "<figure class=\"wp-block-quote\"><blockquote></blockquote><figcaption><cite>Matt Mullenweg, 2017</cite></figcaption></figure>"
+		"originalContent": "<figure class=\"wp-block-quote\"><blockquote></blockquote><figcaption>Matt Mullenweg, 2017</figcaption></figure>"
 	}
 ]

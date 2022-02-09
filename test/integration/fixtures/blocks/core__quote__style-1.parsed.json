@@ -13,11 +13,11 @@
 				]
 			}
 		],
-		"innerHTML": "\n<figure class=\"wp-block-quote\"><blockquote></blockquote><figcaption><cite>Matt Mullenweg, 2017</cite></figcaption></figure>\n",
+		"innerHTML": "\n<figure class=\"wp-block-quote\"><blockquote></blockquote><figcaption>Matt Mullenweg, 2017</figcaption></figure>\n",
 		"innerContent": [
 			"\n<figure class=\"wp-block-quote\"><blockquote>",
 			null,
-			"</blockquote><figcaption><cite>Matt Mullenweg, 2017</cite></figcaption></figure>\n"
+			"</blockquote><figcaption>Matt Mullenweg, 2017</figcaption></figure>\n"
 		]
 	}
 ]

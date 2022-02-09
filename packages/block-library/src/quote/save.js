@@ -16,23 +16,15 @@ export default function save( { attributes } ) {
 	} );
 
 	return (
-		<>
-			{ RichText.isEmpty( attribution ) ? (
-				<blockquote { ...useBlockProps.save( { className } ) }>
-					<InnerBlocks.Content />
-				</blockquote>
-			) : (
-				<figure { ...useBlockProps.save( { className } ) }>
-					<blockquote>
-						<InnerBlocks.Content />
-					</blockquote>
-
-					<RichText.Content
-						tagName="figcaption"
-						value={ attribution }
-					/>
-				</figure>
+		<figure { ...useBlockProps.save( { className } ) }>
+			<blockquote>
+				<InnerBlocks.Content />
+			</blockquote>
+			{ ! RichText.isEmpty( attribution ) && (
+				<figcaption>
+					<RichText.Content value={ attribution } />
+				</figcaption>
 			) }
-		</>
+		</figure>
 	);
 }

@@ -2,12 +2,23 @@
 	{
 		"clientId": "_clientId_0",
 		"name": "core/quote",
-		"isValid": false,
+		"isValid": true,
 		"attributes": {
-			"citation": "...with a caption",
-			"align": "right"
+			"align": "right",
+			"attribution": "...with a caption"
 		},
-		"innerBlocks": [],
+		"innerBlocks": [
+			{
+				"clientId": "_clientId_0",
+				"name": "core/paragraph",
+				"isValid": true,
+				"attributes": {
+					"content": "Testing deprecated quote block...",
+					"dropCap": false
+				},
+				"innerBlocks": []
+			}
+		],
 		"originalContent": "<blockquote style=\"text-align:right\" class=\"wp-block-quote\">\n\t<p>Testing deprecated quote block...</p>\n\t<cite>...with a caption</cite>\n</blockquote>"
 	}
 ]

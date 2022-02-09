@@ -109,10 +109,11 @@ const transforms = {
 		{
 			type: 'raw',
 			schema: ( { phrasingContentSchema } ) => ( {
-				blockquote: {
+				figure: {
+					require: [ 'blockquote' ],
 					children: {
-						p: {
-							children: phrasingContentSchema,
+						blockquote: {
+							children: '*',
 						},
 						figcaption: {
 							children: phrasingContentSchema,
@@ -120,52 +121,22 @@ const transforms = {
 					},
 				},
 			} ),
-			isMatch: ( node ) => {
-				const isAllowedNode = ( () => {
-					let hasCitation = false;
-					return ( child ) => {
-						if (
-							[
-								'P',
-								'H1',
-								'H2',
-								'H3',
-								'H4',
-								'H5',
-								'H6',
-								'UL',
-								'OL',
-								'PRE',
-							].some( ( tag ) => tag === child.nodeName )
-						) {
-							return true;
-						}
-						// Child is a cite and no other cite child exists before it.
-						if (
-							! hasCitation &&
-							child.nodeName === 'FIGCAPTION'
-						) {
-							hasCitation = true;
-							return true;
-						}
-					};
-				} )();
-				return (
-					node.nodeName === 'BLOCKQUOTE' &&
-					// The quote block can only handle multiline paragraph
-					// content with an optional figcaption child.
-					Array.from( node.childNodes ).every( isAllowedNode )
-				);
-			},
-			transform: ( node ) =>
-				createBlock(
+			isMatch: ( node ) =>
+				node.nodeName === 'FIGURE' &&
+				!! node.querySelector( 'blockquote' ),
+			transform: ( node ) => {
+				return createBlock(
 					'core/quote',
-					{},
+					{
+						attribution: node.querySelector( 'figcaption' )
+							?.innerHTML,
+					},
 					rawHandler( {
-						HTML: node.innerHTML,
+						HTML: node.querySelector( 'blockquote' ).innerHTML,
 						mode: 'BLOCKS',
 					} )
-				),
+				);
+			},
 		},
 	],
 	to: [

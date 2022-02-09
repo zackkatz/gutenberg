@@ -299,9 +299,9 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			`<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
 <p>chicken</p>
-<!-- /wp:paragraph --></blockquote>`
+<!-- /wp:paragraph --></blockquote></figure>`
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -314,20 +314,21 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			`<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
 <p>chicken</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 <p>ribs</p>
-<!-- /wp:paragraph --></blockquote>`
+<!-- /wp:paragraph --></blockquote></figure>`
 		);
 		expect( console ).toHaveLogged();
 	} );
 
 	it( 'should correctly handle quotes with paragraph and citation at the end', () => {
 		const filtered = pasteHandler( {
-			HTML: '<blockquote><p>chicken</p><cite>ribs</cite></blockquote>',
+			HTML:
+				'<figure><blockquote><p>chicken</p></blockquote><figcaption>ribs</figcaption></figure>',
 			mode: 'AUTO',
 		} )
 			.map( getBlockContent )
@@ -336,31 +337,15 @@ describe( 'Blocks raw handling', () => {
 		expect( filtered ).toBe(
 			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
 <p>chicken</p>
-<!-- /wp:paragraph --></blockquote><figcaption><cite>ribs</cite></figcaption></figure>`
+<!-- /wp:paragraph --></blockquote><figcaption>ribs</figcaption></figure>`
 		);
 		expect( console ).toHaveLogged();
 	} );
 
 	it( 'should handle a citation before the content', () => {
 		const filtered = pasteHandler( {
-			HTML: '<blockquote><cite>ribs</cite><p>ribs</p></blockquote>',
-			mode: 'AUTO',
-		} )
-			.map( getBlockContent )
-			.join( '' );
-
-		expect( filtered ).toBe(
-			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
-<p>ribs</p>
-<!-- /wp:paragraph --></blockquote><figcaption><cite>ribs</cite></figcaption></figure>`
-		);
-		expect( console ).toHaveLogged();
-	} );
-
-	it( 'should handle a citation in the middle of the content', () => {
-		const filtered = pasteHandler( {
 			HTML:
-				'<blockquote><p>chicken</p><cite>ribs</cite><p>ribs</p></blockquote>',
+				'<figure><figcaption>ribs</figcaption><blockquote><p>chicken</p></blockquote></figure>',
 			mode: 'AUTO',
 		} )
 			.map( getBlockContent )
@@ -369,51 +354,8 @@ describe( 'Blocks raw handling', () => {
 		expect( filtered ).toBe(
 			`<figure class="wp-block-quote"><blockquote><!-- wp:paragraph -->
 <p>chicken</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>ribs</p>
-<!-- /wp:paragraph --></blockquote><figcaption><cite>ribs</cite></figcaption></figure>`
+<!-- /wp:paragraph --></blockquote><figcaption>ribs</figcaption></figure>`
 		);
-		expect( console ).toHaveLogged();
-	} );
-
-	it( 'should correctly handle quotes with only a citation', () => {
-		const filtered = pasteHandler( {
-			HTML: '<blockquote><cite>ribs</cite></blockquote>',
-			mode: 'AUTO',
-		} )
-			.map( getBlockContent )
-			.join( '' );
-
-		expect( filtered ).toBe(
-			'<figure class="wp-block-quote"><blockquote></blockquote><figcaption><cite>ribs</cite></figcaption></figure>'
-		);
-		expect( console ).toHaveLogged();
-	} );
-
-	it( 'should convert to paragraph quotes with more than one cite', () => {
-		const filtered = pasteHandler( {
-			HTML: '<blockquote><cite>ribs</cite><cite>ribs</cite></blockquote>',
-			mode: 'AUTO',
-		} )
-			.map( getBlockContent )
-			.join( '' );
-
-		expect( filtered ).toBe( '<p>ribsribs</p>' );
-		expect( console ).toHaveLogged();
-	} );
-
-	it( 'should convert to paragraph quotes with more than one cite and at least one paragraph', () => {
-		const filtered = pasteHandler( {
-			HTML:
-				'<blockquote><p>chicken</p><cite>ribs</cite><cite>ribs</cite></blockquote>',
-			mode: 'AUTO',
-		} )
-			.map( getBlockContent )
-			.join( '' );
-
-		expect( filtered ).toBe( '<p>chickenribsribs</p>' );
 		expect( console ).toHaveLogged();
 	} );
 

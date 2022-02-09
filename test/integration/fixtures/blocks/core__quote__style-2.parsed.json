@@ -15,11 +15,11 @@
 				]
 			}
 		],
-		"innerHTML": "\n<figure class=\"wp-block-quote is-style-large\"><blockquote></blockquote><figcaption><cite>Maya Angelou</cite></figcaption></figure>\n",
+		"innerHTML": "\n<figure class=\"wp-block-quote is-style-large\"><blockquote></blockquote><figcaption>Maya Angelou</figcaption></figure>\n",
 		"innerContent": [
 			"\n<figure class=\"wp-block-quote is-style-large\"><blockquote>",
 			null,
-			"</blockquote><figcaption><cite>Maya Angelou</cite></figcaption></figure>\n"
+			"</blockquote><figcaption>Maya Angelou</figcaption></figure>\n"
 		]
 	}
 ]

@@ -2,14 +2,22 @@
  * External dependencies
  */
 import { omit } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
  */
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { createBlock, parseWithAttributeSchema } from '@wordpress/blocks';
 
 const blockAttributes = {
+	value: {
+		type: 'string',
+		source: 'html',
+		selector: 'blockquote',
+		multiline: 'p',
+		default: '',
+	},
 	citation: {
 		type: 'string',
 		source: 'html',
@@ -21,9 +29,35 @@ const blockAttributes = {
 	},
 };
 
+function migrateToInnerBlocks( value ) {
+	// The old value attribute for quotes can contain:
+	// - a single paragraph: "<p>single paragraph</p>"
+	// - multiple paragraphs: "<p>first paragraph</p><p>second paragraph</p>"
+	return parseWithAttributeSchema( value, {
+		type: 'array',
+		source: 'query',
+		selector: 'p',
+		query: {
+			content: {
+				type: 'string',
+				source: 'text',
+			},
+		},
+	} ).map( ( { content } ) => createBlock( 'core/paragraph', { content } ) );
+}
+
 const deprecated = [
 	{
 		attributes: blockAttributes,
+		migrate( attributes ) {
+			return [
+				{
+					...omit( attributes, [ 'value', 'citation' ] ),
+					attribution: attributes.citation,
+				},
+				migrateToInnerBlocks( attributes.value ),
+			];
+		},
 		save( { attributes } ) {
 			const { align, value, citation } = attributes;
 
@@ -47,16 +81,25 @@ const deprecated = [
 		},
 
 		migrate( attributes ) {
+			const toOmit = [ 'value', 'citation' ];
+			const toAdd = {
+				attribution: attributes.citation,
+			};
+
 			if ( attributes.style === 2 ) {
-				return {
-					...omit( attributes, [ 'style' ] ),
-					className: attributes.className
-						? attributes.className + ' is-style-large'
-						: 'is-style-large',
-				};
+				toOmit.push( 'style' );
+				toAdd.className = attributes.className
+					? attributes.className + ' is-style-large'
+					: 'is-style-large';
 			}
 
-			return attributes;
+			return [
+				{
+					...omit( attributes, toOmit ),
+					...toAdd,
+				},
+				migrateToInnerBlocks( attributes.value ),
+			];
 		},
 
 		save( { attributes } ) {
@@ -91,13 +134,18 @@ const deprecated = [
 		},
 
 		migrate( attributes ) {
-			if ( ! isNaN( parseInt( attributes.style ) ) ) {
-				return {
-					...omit( attributes, [ 'style' ] ),
-				};
-			}
+			const toOmit = [ 'value', 'citation' ];
 
-			return attributes;
+			if ( ! isNaN( parseInt( attributes.style ) ) )
+				toOmit.push( 'style' );
+
+			return [
+				{
+					...omit( attributes, toOmit ),
+					attribution: attributes.citation,
+				},
+				migrateToInnerBlocks( attributes.value ),
+			];
 		},
 
 		save( { attributes } ) {
@@ -117,44 +165,23 @@ const deprecated = [
 		},
 	},
 	{
-		attributes: {
-			...blockAttributes,
-			value: {
-				type: 'string',
-				source: 'html',
-				selector: 'blockquote',
-				multiline: 'p',
-				default: '',
-			},
-		},
+		attributes: blockAttributes,
 		migrate( attributes ) {
-			// The old value attribute for quotes can contain:
-			// - a single paragraph: "<p>single paragraph</p>"
-			// - multiple paragraphs: "<p>first paragraph</p><p>second paragraph</p>"
-			const innerBlocks = parseWithAttributeSchema( attributes.value, {
-				type: 'array',
-				source: 'query',
-				selector: 'p',
-				query: {
-					value: {
-						type: 'string',
-						source: 'text',
-					},
-				},
-			} ).map( ( { value } ) =>
-				createBlock( 'core/paragraph', { content: value } )
-			);
 			return [
 				{
 					...omit( attributes, [ 'value', 'citation' ] ),
 					attribution: attributes.citation,
 				},
-				innerBlocks,
+				migrateToInnerBlocks( attributes.value ),
 			];
 		},
-		save( { attributes: { value, citation } } ) {
+		save( { attributes: { align, value, citation } } ) {
+			const className = classnames( {
+				[ `has-text-align-${ align }` ]: align,
+			} );
+
 			return (
-				<blockquote>
+				<blockquote { ...useBlockProps.save( { className } ) }>
 					<RichText.Content multiline value={ value } />
 					{ ! RichText.isEmpty( citation ) && (
 						<RichText.Content tagName="cite" value={ citation } />

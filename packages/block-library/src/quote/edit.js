@@ -41,7 +41,7 @@ export default function QuoteEdit( {
 		} ),
 		style,
 	} );
-	const innerBlocksProps = useInnerBlocksProps( blockProps );
+	const innerBlocksProps = useInnerBlocksProps();
 	const isAncestorOfSelectedBlock = useSelect( ( select ) =>
 		select( blockEditorStore ).hasSelectedInnerBlock( clientId )
 	);
@@ -75,11 +75,11 @@ export default function QuoteEdit( {
 					</ToolbarButton>
 				</ToolbarGroup>
 			</BlockControls>
-			{ showAttribution ? (
-				<figure { ...innerBlocksProps }>
-					<BlockQuotation>
-						{ innerBlocksProps.children }
-					</BlockQuotation>
+			<figure { ...blockProps }>
+				<BlockQuotation { ...innerBlocksProps }>
+					{ innerBlocksProps.children }
+				</BlockQuotation>
+				{ showAttribution && (
 					<RichText
 						identifier="attribution"
 						tagName={ isWebPlatform ? 'figcaption' : undefined }
@@ -102,12 +102,8 @@ export default function QuoteEdit( {
 							insertBlocksAfter( createBlock( 'core/paragraph' ) )
 						}
 					/>
-				</figure>
-			) : (
-				<BlockQuotation { ...innerBlocksProps }>
-					{ innerBlocksProps.children }
-				</BlockQuotation>
-			) }
+				) }
+			</figure>
 		</>
 	);
 }
